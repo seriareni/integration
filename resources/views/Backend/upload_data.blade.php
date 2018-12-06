@@ -18,42 +18,58 @@
     <section class="content">
         <!-- Main row -->
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-8">
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Data</h3>
+                        <h3 class="box-title">Input Data</h3>
                     </div>
 
                     <div class="box-body">
-                    <label for="exampleInputFile">File input</label>
-                    <p class="help-block">Upload file type .zip</p>
-                    <?php
+                        <?php echo Form::open(['url'=>'/backend/upload','files'=>'true']); ?>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p class="help-block">Upload file type .zip</p>
+                            </div>
 
-                    echo Form::open(['url'=>'/backend/upload','files'=>'true']);
-                    echo Form::file('zip_file', ['class' => 'btn btn-md', 'accept' => 'application/zip', 'id'=>'zip_file']);
-                    echo Form::submit('Submit', ['class' => 'btn btn-md btn-primary']);
-                    echo Form::close();
+                            <div class="col-md-4" >
+                                <?php
 
-                    ?>
+                                echo Form::file('zip_file', ['class' => 'btn btn-md', 'accept' => 'application/zip', 'id'=>'zip_file']);
+
+                                ?>
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="exampleInputFile"></label>
+                                <p class="help-block">Choose schema : </p>
+                            </div>
+
+                            <div class="col-md-4">
+                                @foreach($schemas as $num => $data)
+                                    <li>
+                                        {{Form::radio('data', $data->schema_name)}}
+                                        {{$data->schema_name}}
+                                        <span class="pull-right-container"></span>
+                                    </li>
+                                @endforeach
+                            </div>
+                        </div>
+                        <br>git
+                        <br>
+
+                        <?php
+                        echo Form::submit('Submit', ['class' => 'btn btn-md btn-primary', 'text-align' => 'right']);
+                        echo Form::close();
+                        ?>
 
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="box box-primary">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Schema</h3>
-                    </div>
 
-                    <div class="box-body">
-                        <label for="exampleInputFile"></label>
-                        <p class="help-block"></p>
-
-
-
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 </div>
