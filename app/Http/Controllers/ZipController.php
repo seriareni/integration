@@ -22,14 +22,30 @@ class ZipController extends Controller
         return view('backend/upload_data', ['schemas' => $schemas]);
     }
 
+    public function deleteDirectory($dir) {
+        if (!file_exists($dir)) {
+            return true;
+        }
+        if (!is_dir($dir)) {
+            return unlink($dir);
+        }
+        foreach (scandir($dir) as $item) {
+            if ($item == '.' || $item == '..') {
+                continue;
+            }
+            if (!$this->deleteDirectory($dir . DIRECTORY_SEPARATOR . $item)) {
+                return false;
+            }
+        }
+        return rmdir($dir);
+    }
+
     public function uploadData(Request $request){
 
         $schemaName = Input::get('data');
-
+//        dd($schemaName);
         $uploadedFile = $request->file('zip_file');
         $zipName = time() . '_' . $uploadedFile->getClientOriginalName();
-
-//        dd($zipName);
         $uploadedFile->move('uploads/', $zipName);
 
         $zip = Zip::open(public_path('uploads/'.$zipName));
@@ -50,41 +66,72 @@ class ZipController extends Controller
 
              $output = shell_exec('"C:\Program Files\PostgreSQL\9.5\bin\shp2pgsql" -I -s 4326 '.$filename_new .' '.$schemaName.'.'.$table_name_new.' | "C:\Program Files\PostgreSQL\9.5\bin\psql" -U postgres -d sitrg');
 
-//           unlink(public_path().'\\uploads\\'.$filenameZip);
-
         }
-//        $this->post_workspace($schemaName);
 
-//        return redirect('backend/uploadData');
+        $this->deleteDirectory($filenameZip);
+        $this->request_workspace($schemaName);
+
+        return redirect('backend/uploadData');
 
     }
 
-//    public function request_workspace(){
-//        $client = new Client();
-//        $res = $client->request('GET', 'http://localhost:8080/geoserver/rest/workspaces', [
-//            'auth' => ['admin', 'geoserver']
-//        ]);
-//
-//        //menampilkan json
-//        echo $res->getBody();
-//
-//        $responsArray=json_decode($res->getBody());
-//        dd($responsArray);
-//    }
-//
-//    public function post_workspace($name)
-//    {
-//        $client = new Client();
-//        $res = $client->request('POST', 'http://localhost:8080/geoserver/rest/workspaces', [
-//            'auth' => ['admin', 'geoserver'],
-//            'form_params' => [
-//                'workspace' => [
-//                    'name' => $name
-//                ]
-//            ]
-//        ]);
-//
-//    }
+    public function post_workspace(String $name)
+    {
+        $client = new Client();
+        $res = $client->request('POST', 'http://localhost:8080/geoserver/rest/workspaces', [
+            'auth' => ['admin', 'geoserver'],
+            'json' => [
+                'workspace' => [
+                    'name' => $name
+                ]
+            ]
+        ]);
+
+    }
+
+    public function request_workspace(String $name){
+        $client = new Client();
+        $res = $client->request('GET', 'http://localhost:8080/geoserver/rest/workspaces/'.$name, [
+            'auth' => ['admin', 'geoserver']
+        ]);
+
+        //menampilkan json
+//        dd((string) $res->getBody());
+
+        $responsArray=json_decode($res->getBody());
+//        dd($responsArray->workspace->name);
+
+        if ($responsArray->workspace->name == $name)
+            $workspacename = $name;
+        else
+            $this->post_workspace($name);
+        git
+    }
+
+    public function post_store(Request $name)
+    {
+        $client = new Client();
+
+        $res = $client->request('POST', 'http://localhost:8080/geoserver/rest/workspaces/'.$name.'/datastores', [
+            'auth' => ['admin', 'geoserver'],
+            'form_params' => [
+                'dataStore' => [
+                    'name' => 'nyc',
+                    'connectionParameter' => [
+                        'entry' =>[
+                            '@key'=>'host' , '$' => 'localhost',
+                            '@key'=>'port' , '$' => 5432,
+                            '@key'=>'database' , '$' => 'sitrg',
+                            '@key'=>'user' , '$' => 'postgres',
+                            '@key'=>'passwd' , '$' => 'postgres',
+                            '@key'=>'dbtype' , '$' => 'postgis',
+
+                        ]
+                    ]
+                ]
+            ]
+        ]);
+    }
 
 
 

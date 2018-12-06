@@ -58,7 +58,7 @@
                                 @endforeach
                             </div>
                         </div>
-                        <br>git
+                        <br>
                         <br>
 
                         <?php
