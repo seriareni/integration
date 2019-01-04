@@ -110,6 +110,7 @@
                 @foreach($activeMenu as $num => $data)
                     <li class="treeview">
                         <a href="{{url($data->getMenu->url)}}">
+                            <i class="{{$data->getMenu->icon}}"></i>
                             <span>{{$data->getMenu->label}}</span>
                             <span class="pull-right-container"></span>
                         </a>

@@ -34,6 +34,7 @@ class LoginController extends Controller
                 $request->session()->put('activeUser',$activeUser); // activeuser diambil session ke home.
                // dd($activeUser);
 
+
                 return redirect('backend/home');
             }
             $params = [

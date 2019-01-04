@@ -5,7 +5,7 @@
         <p><br><br></p>
         <div class="main-div">
             <div class="panel">
-                <h2>Login</h2>
+                <h2>Admin Login</h2>
                 <p>Please enter your email and password</p>
             </div>
 

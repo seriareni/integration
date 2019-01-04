@@ -21,10 +21,12 @@ Route::get('/login', 'LoginController@index');
 Route::post('/login/validate', 'LoginController@ceklogin');
 Route::post('/logout', 'LoginController@cekLogout');
 
+
 //Menu backend
 Route::get('/home', 'HomeController@index');
 Route::post('/backend/upload', 'ZipController@uploadData')->name("upload");
 Route::get('/backend/coba', 'ZipController@coba');
+Route::post('/register/post', 'RegisterController@post');
 
 Route::group(['middleware' => ['loginverification']], function () {
 //    Menu backend
@@ -32,4 +34,8 @@ Route::group(['middleware' => ['loginverification']], function () {
     Route::get('/backend/home/sh', 'HomeController@sh');
     Route::get('/backend/uploadData', 'ZipController@index');
     Route::get('/backend/dataSHP', 'ZipController@show');
+    Route::get('/backend/user', 'UserController@index');
+    Route::resource('user', 'UserController');
+    Route::get('/backend/addUser', 'UserController@index');
+
 });
