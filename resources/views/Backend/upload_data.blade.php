@@ -51,6 +51,10 @@
                             <div class="col-md-4">
                                 @foreach($schemas as $num => $data)
                                     <li>
+                                        {{--<select id="data" name="data">--}}
+                                            {{--<option>Select Schema</option>--}}
+                                            {{--<option value="data"> {{$data->schema_name}}</option>--}}
+                                        {{--</select>--}}
                                         {{Form::radio('data', $data->schema_name)}}
                                         {{$data->schema_name}}
                                         <span class="pull-right-container"></span>
