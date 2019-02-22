@@ -33,9 +33,7 @@
 
                             <div class="col-md-4" >
                                 <?php
-
                                 echo Form::file('zip_file', ['class' => 'btn btn-md', 'accept' => 'application/zip', 'id'=>'zip_file']);
-
                                 ?>
                             </div>
                         </div>
@@ -49,16 +47,18 @@
                             </div>
 
                             <div class="col-md-4">
+
                                 @foreach($schemas as $num => $data)
-                                    <li>
                                         {{--<select id="data" name="data">--}}
                                             {{--<option>Select Schema</option>--}}
+                                            {{--@foreach($schemas as $num => $data)--}}
                                             {{--<option value="data"> {{$data->schema_name}}</option>--}}
+                                            {{--@endforeach--}}
                                         {{--</select>--}}
                                         {{Form::radio('data', $data->schema_name)}}
                                         {{$data->schema_name}}
+                                        <br>
                                         <span class="pull-right-container"></span>
-                                    </li>
                                 @endforeach
                             </div>
                         </div>

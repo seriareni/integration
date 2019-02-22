@@ -45,31 +45,35 @@
 
                         <div class="box-body">
 
-                            <table class="table table-hover table-sm">
+                            <table class="table table-hover table-sm" id="myTable">
+                                <thead>
                                 <tr>
                                     <th width="50px"><b>No.</b></th>
                                     <th width="300px"><b>Nama</b></th>
                                     <th width="300px"><b>Email</b></th>
                                     <th width="180px"><b>Action</b></th>
                                 </tr>
-
+                                </thead>
+                                <tbody>
                                 @foreach($users as $user)
                                     <tr>
                                         <td><b>{{++$i}}.</b></td>
                                         <td>{{$user->name}}</td>
                                         <td>{{$user->email}}</td>
                                         <td>
-                                            <form action="{{route('user.destroy',$user->id)}}" method="post">
-                                                <a class="btn btn-primary" href="{{route('user.show', $user->id)}}">Show</a>
-                                                <a class="btn btn-warning" href="{{route('user.edit', $user->id)}}">Edit</a>
-
+                                            <form action="{{route('user.destroy',$user->user_id)}}" method="post">
+                                                <a class="btn btn-primary" href="{{route('user.show', $user->user_id)}}">Show</a>
+                                                <a class="btn btn-warning" href="{{route('user.edit', $user->user_id)}}">Edit</a>
                                                 {{ csrf_field() }}
                                                 <button type="submit" class="btn btn-danger">Delete</button>
                                             </form>
                                         </td>
                                     </tr>
                                 @endforeach
+                                </tbody>
                             </table>
+
+                            {!! $users->links() !!}
                             <p>Hello
                                 {{session()->get('activeUser')->name}}
                             </p>
@@ -87,4 +91,5 @@
         <!-- /.content -->
 
     </div>
+
 @endsection

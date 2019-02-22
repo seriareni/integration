@@ -33,6 +33,13 @@
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="{{asset('bower_components/admin-lte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
 
+    <link rel="stylesheet" href="{{asset('css/jquery.dataTables.min.css')}}">
+    {{--@if(config('adminlte.plugins.datatables'))--}}
+    {{--<!-- DataTables -->--}}
+        {{--<link rel="stylesheet" type="text/css"--}}
+              {{--href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">--}}
+    {{--@endif--}}
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div id="app" class="wrapper">
@@ -133,11 +140,37 @@
 
 </div>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
     <!-- jQuery 3 -->
     <script src="{{asset('bower_components/jquery/dist/jquery.min.js')}}"></script>
     <!-- jQuery UI 1.11.4 -->
+
+    <script src="//cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+    <script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
+
+    {{--<script--}}
+        {{--src="{{asset('js/jquery.dataTables.min.js')}}"--}}
+        {{--integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="--}}
+        {{--crossorigin="anonymous"></script>--}}
+
+{{--    <script src="{{asset('js/jquery.dataTables.min.js')}}"></script>--}}
+
+    {{--<script type="text/javascript">--}}
+    {{--$(document).ready( function () {--}}
+        {{--$('#myTable').DataTable({--}}
+            {{--"processing" : true,--}}
+            {{--"serverSide" : true,--}}
+            {{--"ajax" : "{{ route('test.getdata')}}",--}}
+            {{--"columns" : [--}}
+                {{--{"data" : "nama"},--}}
+                {{--{"data" : "email"},--}}
+            {{--]--}}
+        {{--});--}}
+    {{--}--}}
+    {{--);</script>--}}
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}"></script>
+
     <script src="{{asset('bower_components/jquery-ui/jquery-ui.min.js')}}"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
@@ -164,6 +197,16 @@
     <script src="{{asset('bower_components/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
     <!-- FastClick -->
     <script src="{{asset('bower_components/fastclick/lib/fastclick.js')}}"></script>
+
+<script>
+    $(document).ready( function () {
+        $('myTable').DataTable();
+    } );
+    // $(function () {
+    //     $("#myTable").DataTable();
+    // });
+</script>
+
 
 
 </body>

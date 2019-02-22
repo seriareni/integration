@@ -7,14 +7,14 @@ use Illuminate\Http\Request;
 use App\Models\UserModel;
 use Illuminate\Support\Facades\Session;
 use DB;
+use Yajra\DataTables;
 
 class UserController extends Controller
 {
     public function index(){
-
         $users = UserModel::latest()->paginate(5);
         return view('backend/user', compact('users'))->with('i',(request()->input('page',1)-1)*5);
-//        return view('backend/user');
+        return view('backend/user');
     }
 
     public function create(){
@@ -33,15 +33,38 @@ class UserController extends Controller
                          ->with('success','new user created successfully');
     }
 
-    public function destroy(){
+    public function show($id){
+        $user = UserModel::find($id);
+        return view('backend.detail_user', compact('user'));
 
     }
 
-    public function show(){
+    public function edit($id){
+        $user = UserModel::find($id);
+        return view('backend.edit_user', compact('user'));
 
     }
 
-    public function edit(){
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+
+        $user = UserModel::find($id);
+        $user->name = $request->get('name');
+        $user->email = $request->get('email');
+        $user->password = $request->get('password');
+
+        $user->save();
+        return redirect()->route('user.index')
+                        ->with('success', 'Biodata user berhasil diupload');
+    }
+
+    public function destroy($id){
 
     }
+
 }

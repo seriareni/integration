@@ -26,6 +26,8 @@ Route::post('/logout', 'LoginController@cekLogout');
 Route::get('/home', 'HomeController@index');
 Route::post('/backend/upload', 'ZipController@uploadData')->name("upload");
 Route::get('/backend/coba', 'ZipController@coba');
+Route::get('/backend/test', 'TestController@show')->name("test");
+Route::get('/backend/test/getdata', 'TestController@getdata')->name("test.getdata");
 Route::post('/register/post', 'RegisterController@post');
 
 Route::group(['middleware' => ['loginverification']], function () {
@@ -35,7 +37,17 @@ Route::group(['middleware' => ['loginverification']], function () {
     Route::get('/backend/uploadData', 'ZipController@index');
     Route::get('/backend/dataSHP', 'ZipController@show');
     Route::get('/backend/user', 'UserController@index');
-    Route::resource('user', 'UserController');
+    Route::resource('/backend/user', 'UserController',[
+        'names' => [
+            'show' => 'user.show',
+            'edit' => 'user.edit',
+            'destroy' => 'user.destroy',
+        ]
+    ]);
+
     Route::get('/backend/addUser', 'UserController@index');
 
 });
+
+//Menu frontend
+Route::get('/frontend/home', 'FrontendHomeController@index');

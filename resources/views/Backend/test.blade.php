@@ -27,6 +27,36 @@
                             <h3 class="box-title">Data</h3>
                         </div>
                         <div class="box-body">
+
+                            <table class="table table-hover table-sm" id="userTable" name="userTable">
+                                <tr>
+                                    <th width="50px"><b>No.</b></th>
+                                    <th width="300px"><b>Nama</b></th>
+                                    <th width="300px"><b>Email</b></th>
+                                    <th width="180px"><b>Action</b></th>
+                                </tr>
+
+
+                                    <tr>
+                                        <td><b>{.</b></td>
+                                        <td></td>
+                                        <td>l</td>
+                                        <td>
+                                            <form action="" method="post">
+                                                <a class="btn btn-primary">Show</a>
+                                                <a class="btn btn-warning">Edit</a>
+
+                                                {{ csrf_field() }}
+                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+
+                            </table>
+
+
+
+
                             {{--@if (session('status'))--}}
                                 {{--<div class="alert alert-success">--}}
                                     {{--{{ session('status') }}--}}
@@ -36,10 +66,6 @@
                             {{--<p>Hello--}}
                                 {{--{{session()->get('activeUser')->name}}--}}
                             {{--</p>--}}
-                                @foreach( $schemas as  $schema)
-                                    <p> {{ $schema }}</p>
-
-                                @endforeach
                         </div>
                     </div>
                 </div>
