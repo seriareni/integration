@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "da976123584f9f8ffde2bb9ee64d366b",
+    "content-hash": "0d0deadeba5d6e0874b65dcbdf04e1d5",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1166,6 +1166,47 @@
                 "php"
             ],
             "time": "2018-07-15T17:25:16+00:00"
+        },
+        {
+            "name": "pacuna/schemas",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pacuna/Laravel-PGSchema.git",
+                "reference": "5ada61278d977a25b711efb7deca0ac21520922d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pacuna/Laravel-PGSchema/zipball/5ada61278d977a25b711efb7deca0ac21520922d",
+                "reference": "5ada61278d977a25b711efb7deca0ac21520922d",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Pacuna\\Schemas": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pablo Acuña",
+                    "email": "pabloacuna88@gmail.com"
+                }
+            ],
+            "description": "Laravel package for managing postgresql schemas",
+            "keywords": [
+                "laravel",
+                "postgres"
+            ],
+            "time": "2018-09-05T17:22:20+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -4423,7 +4464,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "pacuna/schemas": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

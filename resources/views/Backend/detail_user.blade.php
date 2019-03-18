@@ -15,6 +15,8 @@
             <h1 class="col-lg-pull-6">
                 User Detail
             </h1>
+            <br>
+            <br>
             {{--<small>Control panel</small>--}}
 
 
@@ -32,26 +34,38 @@
 
             <!-- Main row -->
             <div class="row" >
-                <div class="col-md-12">
+                <div class="col-md-8">
                     <div class="box box-primary">
                         <div class="box-body">
-                            <div class="col-md-12">
+                            <br>
+                            <form class="form-horizontal">
                                 <div class="form-group">
-                                   <strong>Name : </strong> {{$user->name}}
+                                    <label class="col-sm-2 control-label">Nama Wilayah</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" value="{{$user->name}}" disabled>
+                                       </div>
                                 </div>
-                            </div>
-                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <strong>Email : </strong> {{$user->email}}
+                                    <label class="col-sm-2 control-label">Email</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" value="{{$user->email}}" disabled>
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Password</label>
+                                    <div class="col-sm-8">
+                                        <input type="password" class="form-control" value="{{$user->password}}" disabled>
+                                    </div>
+                                </div>
+                            </form>
+
                             <div class="col-md-12">
                                 <a href="{{route('user.index')}}" class="btn btn-success">Back</a>
                             </div>
 
-                            <p>Hello
-                                {{session()->get('activeUser')->name}}
-                            </p>
+                            {{--<p>Hello--}}
+                                {{--{{session()->get('activeUser')->name}}--}}
+                            {{--</p>--}}
                             {{--<p>--}}
                             {{--Role--}}
                             {{--{{session()->get('activeUser')->role_id}}--}}

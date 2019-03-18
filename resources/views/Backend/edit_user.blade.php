@@ -1,10 +1,10 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: USER
- * Date: 1/16/2019
- * Time: 5:09 PM
- */
+
+{{--/**--}}
+ {{--* Created by PhpStorm.--}}
+ {{--* User: USER--}}
+ {{--* Date: 1/16/2019--}}
+ {{--* Time: 5:09 PM--}}
+ {{--*/--}}
 
 @extends('layouts.backend_template')
 
@@ -54,36 +54,45 @@
                         @endif
 
                         <div class="box-body">
-                            <form action="{{route('user.update')}}" method="post">
-                                {{!!@csrf_field()}}
-                                @method('PUT')
+                            <form class="form-horizontal" action="{{route('user.update', $user->user_id)}}" method="post" >
 
-                                <div class="row">
-                                    <input type="hidden" name="_token" value=" >
+                                <input type="hidden" name="_method" value="PUT">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-">
-                                    <div class="col-md-12">
-                                        <strong>Name : </strong>
-                                        <input type="text" name="name" class="form-control" placeholder="Name" value="">
+                                <div class="form-group">
+                                    <div class="col-sm-8">
+                                        <input type="hidden" name="_token" value="" >
                                     </div>
-                                    <div class="col-md-12">
-                                        <strong>Email : </strong>
-                                        <input type="email" name="email" class="form-control" placeholder="Email">
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Nama Wilayah</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="name" class="form-control" value="{{$user->name}}" onkeyup="this.value = this.value.toLowerCase();">
                                     </div>
-                                    <div class="col-md-12">
-                                        <strong>Password : </strong>
-                                        <input type="password" name="password" class="form-control" placeholder="Password">
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Email</label>
+                                    <div class="col-sm-8">
+                                        <input type="email" name="email" class="form-control" value="{{$user->email}}">
                                     </div>
-
-                                    <div class="col-md-12">
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Password</label>
+                                    <div class="col-sm-8">
+                                        <input type="password" name="password" class="form-control"  value="{{$user->password}}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-8">
                                         <a href="{{route('user.index')}}" class="btn btn-success">Back</a>
                                         <button type="submit" class="btn btn-primary">Submit</button>
                                     </div>
                                 </div>
                             </form>
-                            <p>Hello
-                                {{session()->get('activeUser')->name}}
-                            </p>
+
+                            {{--<p>Hello--}}
+                                {{--{{session()->get('activeUser')->name}}--}}
+                            {{--</p>--}}
                             {{--<p>--}}
                             {{--Role--}}
                             {{--{{session()->get('activeUser')->role_id}}--}}

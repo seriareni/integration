@@ -8,6 +8,8 @@
             <h1 class="col-lg-pull-6">
                 Add User
             </h1>
+            <br>
+            <br>
             {{--<small>Control panel</small>--}}
 
 
@@ -25,7 +27,7 @@
 
             <!-- Main row -->
             <div class="row" >
-                <div class="col-md-12">
+                <div class="col-md-8">
                     <div class="box box-primary">
                         <div class="box-header with-border">
                             {{--<div class="pull-left">--}}
@@ -46,32 +48,55 @@
                         @endif
 
                         <div class="box-body">
-                            <form action="{{route('user.store')}}" method="post">
-                                {{!!@csrf_field()}}
-                                <div class="row">
-                                    <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-                                    <div class="col-md-12">
-                                        <strong>Name : </strong>
-                                        <input type="text" name="name" class="form-control" placeholder="Name">
-                                    </div>
-                                    <div class="col-md-12">
-                                        <strong>Email : </strong>
-                                        <input type="email" name="email" class="form-control" placeholder="Email">
-                                    </div>
-                                    <div class="col-md-12">
-                                        <strong>Password : </strong>
-                                        <input type="password" name="password" class="form-control" placeholder="Password">
-                                    </div>
+                            <form action="{{route('user.store')}}" method="post" class="form-horizontal">
+{{--                                {{!!@csrf_field()}}--}}
 
-                                    <div class="col-md-12">
+                                {{--<div class="row">--}}
+                                <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Name</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="name" id="name" class="form-control" placeholder="Name" onkeyup="this.value = this.value.toLowerCase();">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Email</label>
+                                    <div class="col-sm-10">
+                                        <input type="email" name="email" id="email" class="form-control" placeholder="Email">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Password </label>
+                                    <div class="col-sm-10">
+                                        <input type="password" name="password" id="password" class="form-control" placeholder="Password">
+                                    </div>
+                                </div>
+                                {{----}}
+                                    {{--<div class="col-md-12">--}}
+                                       {{--<strong> Name </strong>--}}
+                                        {{--<strong> :</strong>--}}
+                                        {{--<input type="text" name="name" class="form-control" placeholder="Name">--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col-md-12">--}}
+                                        {{--<strong>Email : </strong>--}}
+                                        {{--<input type="email" name="email" class="form-control" placeholder="Email">--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col-md-12">--}}
+                                        {{--<strong>Password : </strong>--}}
+                                        {{--<input type="password" name="password" class="form-control" placeholder="Password">--}}
+                                    {{--</div>--}}
+                                <div class="row">
+                                    <div class="col-md-6">
                                         <a href="{{route('user.index')}}" class="btn btn-success">Back</a>
-                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <button type="submit" class="btn btn-primary" >Submit</button>
                                     </div>
                                 </div>
                             </form>
-                            <p>Hello
-                                {{session()->get('activeUser')->name}}
-                            </p>
+                            {{--<p>Hello--}}
+                                {{--{{session()->get('activeUser')->name}}--}}
+                            {{--</p>--}}
                             {{--<p>--}}
                             {{--Role--}}
                             {{--{{session()->get('activeUser')->role_id}}--}}

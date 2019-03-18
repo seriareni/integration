@@ -45,11 +45,11 @@
 
                         <div class="box-body">
 
-                            <table class="table table-hover table-sm" id="myTable">
+                            <table  class="table table-bordered table-hover" id="myTable">
                                 <thead>
                                 <tr>
                                     <th width="50px"><b>No.</b></th>
-                                    <th width="300px"><b>Nama</b></th>
+                                    <th width="300px"><b>Nama Wilayah</b></th>
                                     <th width="300px"><b>Email</b></th>
                                     <th width="180px"><b>Action</b></th>
                                 </tr>
@@ -62,10 +62,14 @@
                                         <td>{{$user->email}}</td>
                                         <td>
                                             <form action="{{route('user.destroy',$user->user_id)}}" method="post">
+                                                {{ csrf_field() }}
                                                 <a class="btn btn-primary" href="{{route('user.show', $user->user_id)}}">Show</a>
                                                 <a class="btn btn-warning" href="{{route('user.edit', $user->user_id)}}">Edit</a>
-                                                {{ csrf_field() }}
-                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                                {{--{{ csrf_field() }}--}}
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+                                                <button onclick="konfirmasiHapus()" type="submit" class="btn btn-danger">Delete</button>
                                             </form>
                                         </td>
                                     </tr>
@@ -73,10 +77,10 @@
                                 </tbody>
                             </table>
 
-                            {!! $users->links() !!}
-                            <p>Hello
-                                {{session()->get('activeUser')->name}}
-                            </p>
+{{--                            {!! $users->links() !!}--}}
+                            {{--<p>Hello--}}
+                                {{--{{session()->get('activeUser')->name}}--}}
+                            {{--</p>--}}
                             {{--<p>--}}
                             {{--Role--}}
                             {{--{{session()->get('activeUser')->role_id}}--}}
@@ -91,5 +95,21 @@
         <!-- /.content -->
 
     </div>
+
+    <script>
+        function konfirmasiHapus(){
+            var konfirmasi = confirm("Apakah anda yakin ingin menghapus user ini ? ");
+            var text = "";
+
+            if(konfirmasi === true) {
+                text = "Kamu klik Tombol OK";
+            }else{
+                text = "Kamu klik Tombol Cancel";
+            }
+
+            document.getElementById("hasil").innerHTML = text;
+        }
+    </script>
+
 
 @endsection

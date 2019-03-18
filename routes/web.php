@@ -37,16 +37,9 @@ Route::group(['middleware' => ['loginverification']], function () {
     Route::get('/backend/uploadData', 'ZipController@index');
     Route::get('/backend/dataSHP', 'ZipController@show');
     Route::get('/backend/user', 'UserController@index');
-    Route::resource('/backend/user', 'UserController',[
-        'names' => [
-            'show' => 'user.show',
-            'edit' => 'user.edit',
-            'destroy' => 'user.destroy',
-        ]
-    ]);
+    Route::resource('/backend/user', 'UserController');
 
     Route::get('/backend/addUser', 'UserController@index');
-
 });
 
 //Menu frontend

@@ -12,6 +12,10 @@ class UserModel extends Model
     protected $table = 'users';
     protected $primaryKey = 'user_id';
 
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+
     public function getUserMenus(){
         return $this->hasMany('App\Models\UserMenuModel', 'user_id', 'user_id'); //Diarahkan ke child tablenya
     }

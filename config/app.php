@@ -180,6 +180,7 @@ return [
         ZanySoft\Zip\ZipServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+        Pacuna\Schemas\SchemasServiceProvider::class,
 
     ],
 
@@ -234,6 +235,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Input' => Illuminate\Support\Facades\Input::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+        'PGSchema' => Pacuna\Schemas\Facades\PGSchema::class,
 
 
     ],

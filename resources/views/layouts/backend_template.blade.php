@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="{{asset('bower_components/font-awesome/css/font-awesome.min.css')}}">
     <!-- Ionicons -->
     <link rel="stylesheet" href="{{asset('bower_components/Ionicons/css/ionicons.min.css')}}">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('bower_components/admin-lte/dist/css/AdminLTE.min.css')}}">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -33,12 +35,14 @@
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="{{asset('bower_components/admin-lte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
 
-    <link rel="stylesheet" href="{{asset('css/jquery.dataTables.min.css')}}">
+    {{--<link rel="stylesheet" href="{{asset('css/jquery.dataTables.min.css')}}">--}}
     {{--@if(config('adminlte.plugins.datatables'))--}}
     {{--<!-- DataTables -->--}}
         {{--<link rel="stylesheet" type="text/css"--}}
               {{--href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">--}}
     {{--@endif--}}
+    {{--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">--}}
+    {{--<link  href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">--}}
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -140,12 +144,15 @@
 
 </div>
 
+    {{--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>--}}
+    {{--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>--}}
+    {{--<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>--}}
     <!-- jQuery 3 -->
     <script src="{{asset('bower_components/jquery/dist/jquery.min.js')}}"></script>
     <!-- jQuery UI 1.11.4 -->
 
-    <script src="//cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
-    <script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
+    {{--<script src="//cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>--}}
+{{--    <script src="{{asset('js/jquery.dataTables.min.js')}}"></script>--}}
 
     {{--<script--}}
         {{--src="{{asset('js/jquery.dataTables.min.js')}}"--}}
@@ -172,6 +179,9 @@
     <script src="{{ asset('js/app.js') }}"></script>
 
     <script src="{{asset('bower_components/jquery-ui/jquery-ui.min.js')}}"></script>
+    <!-- DataTables -->
+    <script src="{{asset('bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
         $.widget.bridge('uibutton', $.ui.button);
@@ -198,16 +208,18 @@
     <!-- FastClick -->
     <script src="{{asset('bower_components/fastclick/lib/fastclick.js')}}"></script>
 
-<script>
-    $(document).ready( function () {
-        $('myTable').DataTable();
-    } );
-    // $(function () {
-    //     $("#myTable").DataTable();
-    // });
-</script>
-
-
-
+    <!-- page script -->
+    <script>
+        $(function () {
+            $('#myTable').DataTable({
+                'paging'      : true,
+                'lengthChange': true,
+                'searching'   : true,
+                'ordering'    : true,
+                'info'        : true,
+                'autoWidth'   : false
+            })
+        })
+    </script>
 </body>
 </html>

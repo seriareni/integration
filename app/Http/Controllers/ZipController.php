@@ -15,7 +15,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Middleware;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
-//use Yajra\DataTables;
+use Pacuna\Schemas\Facades\PGSchema;
 
 class ZipController extends Controller
 {
@@ -47,7 +47,9 @@ class ZipController extends Controller
 
     public function uploadData(Request $request)
     {
-        $schemaName = Input::get('data');
+        $schema = Input::get('data');
+        $schemaName = str_replace(" ", "_", $schema);
+        $schemaNameNew = $schemaName;
         $uploadedFile = $request->file('zip_file');
         $zipName = time() . '_' . $uploadedFile->getClientOriginalName();
         $uploadedFile->move('uploads/', $zipName);
@@ -65,6 +67,7 @@ class ZipController extends Controller
         foreach (glob($filenameZip . "/*.prj") as $filename) {
             $file_prj = str_replace("/", "\\", $filename);
         }
+
         $epsg = (int) shell_exec("python C:\Users\USER\Documents\Python\getEPSG.py ".$file_prj);
 
         // globe-> mengambil isi dari folder yang dipilih
@@ -75,16 +78,13 @@ class ZipController extends Controller
         }
 
 //      here 4326 is spatial reference system or coordinate system of the shape file.
-        shell_exec('"C:\Program Files\PostgreSQL\9.5\bin\shp2pgsql" -I -s '. $epsg .' '. $filename_new . ' ' . $schemaName . '.' . $table_name_new . ' | "C:\Program Files\PostgreSQL\9.5\bin\psql" -U postgres -d sitrg');
+        shell_exec('"C:\Program Files\PostgreSQL\9.5\bin\shp2pgsql" -I -s '. $epsg .' '. $filename_new . ' ' . $schemaNameNew . '.' . $table_name_new . ' | "C:\Program Files\PostgreSQL\9.5\bin\psql" -U postgres -d sitrg');
 
         $this->deleteDirectory($filenameZip);
         $this->request_workspace($schemaName);
         $this->post_store($schemaName);
-//        $this->publish($schemaName,$table_name,$epsg);
-//        $this->feature_store($schemaName,$table_name);
 
-        $publishLayer = shell_exec("python C:\Users\USER\Documents\Python\publishLayer.py ". $schemaName .' '. $table_name .' '. $epsg);
-
+        shell_exec("python C:\Users\USER\Documents\Python\publishLayer.py ". $schemaName .' '. $table_name .' '. $epsg);
 
         return redirect('backend/uploadData');
     }
@@ -108,13 +108,10 @@ class ZipController extends Controller
         $res = $client->request('GET', 'http://localhost:8080/geoserver/rest/workspaces/', [
             'auth' => ['admin', 'geoserver']
         ]);
-//        menampilkan json
-//        dd((string) $res->getBody());
+//      menampilkan json
+//      dd((string) $res->getBody());
 
-        $nameArr = [];
         $responsArray = json_decode($res->getBody());
-        $find = false;
-        $varCollection = collect();
 
         foreach ($responsArray->workspaces as $num => $item) {
             foreach ($item as $no => $piece) {
@@ -343,64 +340,18 @@ class ZipController extends Controller
         curl_close($ch);
     }
 
-
     public function coba()
     {
-        $nama = "data";
-        $this->request_workspace($nama);
+        PGSchema::create('Percobaan');
 
-
-//        '<dataStore>
-//                  <name>test</name>
-//                  <connectionParameters>
-//                    <host>localhost</host>
-//                    <port>5432</port>
-//                    <database>sitrg</database>
-//                    <user>admin</user>
-//                    <passwd>postgres</passwd>
-//                    <dbtype>postgis</dbtype>
-//                  </connectionParameters>
-//                </dataStore>'
-
-
-        $datastore = new \SimpleXMLElement('<dataStore></dataStore>');
-
-
-        $datastore->addAttribute( "name", "test2" );
-
-        $connParam = $datastore->addChild('connectionParameters');
-        $connParam->addAttribute("host", "localhost");
-        $connParam->addAttribute("port", 5432);
-        $connParam->addAttribute("database", "sitrg");
-        $connParam->addAttribute("user", "admin");
-        $connParam->addAttribute("passwd", "geoserver");
-        $connParam->addAttribute("dbtype", "postgis");
-
-
-        $data = $datastore->asXML();
-
-//        $name = 'coba';
-//        $client = new Client();
+//        $nama = "data";
+//        $this->request_workspace($nama);
 //
-//        $req = new \GuzzleHttp\Psr7\Request(
-//            'POST',
-//            'http://localhost:8080/geoserver/rest/workspaces/pola_ruang/datastores',
-//            [
-//                'header' => ['Content-type' => 'application/xml'],
-//                'auth' => ['admin', 'geoserver'],
-//            ],
-//            $data
-//        );
+//        $datastore = new \SimpleXMLElement('<dataStore></dataStore>');
 //
+//        $data = $datastore->asXML();
 //
-//
-//        $res = $client->request($req);
-//        $res = $client->request('POST', 'http://localhost:8080/geoserver/rest/workspaces/pola_ruang/datastores', [
-//            'header' => ['Content-type' => 'application/xml'],
-//            'auth' => ['admin', 'geoserver'],
-////             'body' => []
-//
-//        ], [
+//        $datajson=[
 //            'dataStore' => [
 //                'name' => 'test',
 //                'connectionParameter' => [
@@ -414,64 +365,33 @@ class ZipController extends Controller
 //                    ]
 //                ]
 //            ]
-//        ]);
-//        dd($res);
+//        ];
 
-        $datajson=[
-            'dataStore' => [
-                'name' => 'test',
-                'connectionParameter' => [
-                    'entry' => [
-                        ['@key' => 'host', '$' => 'localhost'],
-                        ['@key' => 'port', '$' => 5432],
-                        ['@key' => 'database', '$' => 'sitrg'],
-                        ['@key' => 'user', '$' => 'postgres'],
-                        ['@key' => 'passwd', '$' => 'postgres'],
-                        ['@key' => 'dbtype', '$' => 'postgis'],
-                    ]
-                ]
-            ]
-        ];
-
-        $encode=json_encode($data);
-
-        $ch = curl_init();
-
-        curl_setopt($ch, CURLOPT_URL, "http://localhost:8080/geoserver/rest/workspaces/". $nama ."/datastores");
-        curl_setopt($ch, CURLOPT_HTTPHEADER,  array("Content-type: application/xml", 'Authorization: Basic YWRtaW46Z2Vvc2VydmVy'));
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($ch, CURLOPT_POSTFIELDS, "<dataStore>
-                                                            <name>".$nama."</name>
-                                                            <connectionParameters>
-                                                            <host>localhost</host>
-                                                            <port>5432</port>
-                                                            <database>sitrg</database>
-                                                            <user>admin</user>
-                                                            <passwd>postgres</passwd>
-                                                            <dbtype>postgis</dbtype>
-                                                            </connectionParameters></dataStore>");
-        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-
-        $str = curl_exec($ch);
-
-        curl_close($ch);
-
-        // the value of $str is actually bool(true), not empty string ''
-        dd($str);
-
-
-//        $name = 'coba';
-//        $client = new Client();
+//        $encode=json_encode($data);
 //
-//        $res = $client->request('POST', 'http://localhost:8080/geoserver/rest/workspaces/pola_ruang/datastores', [
-//            'auth' => ['admin', 'geoserver'],
-//            'json' => [
+//        $ch = curl_init();
 //
-//            ]
+//        curl_setopt($ch, CURLOPT_URL, "http://localhost:8080/geoserver/rest/workspaces/". $nama ."/datastores");
+//        curl_setopt($ch, CURLOPT_HTTPHEADER,  array("Content-type: application/xml", 'Authorization: Basic YWRtaW46Z2Vvc2VydmVy'));
+//        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+//        curl_setopt($ch, CURLOPT_POSTFIELDS, "<dataStore>
+//                                                            <name>".$nama."</name>
+//                                                            <connectionParameters>
+//                                                            <host>localhost</host>
+//                                                            <port>5432</port>
+//                                                            <database>sitrg</database>
+//                                                            <user>admin</user>
+//                                                            <passwd>postgres</passwd>
+//                                                            <dbtype>postgis</dbtype>
+//                                                            </connectionParameters></dataStore>");
+//        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
 //
-//        ]);
-
-
+//        $str = curl_exec($ch);
+//
+//        curl_close($ch);
+//
+//        // the value of $str is actually bool(true), not empty string ''
+//        dd($str);
 
 
 //        $this->request_workspace();
@@ -488,7 +408,7 @@ class ZipController extends Controller
 //        $coba2 = DB::select("SELECT schema_name FROM information_schema.schemata where schema_name not like 'information_schema' and schema_name not like 'pg_%'");
 //        dd($coba2);
 
-
+//
 //        return view('backend/test');
 
     }
