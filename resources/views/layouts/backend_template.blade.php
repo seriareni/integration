@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }},width=device-width, initial-scale=1.0">
 
-    <title>{{ config('app.name', 'TA') }}</title>
+    <title>@yield('title')</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -70,14 +70,14 @@
 
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                    <li class="dropdown user user-menu">
+                    {{--<li class="dropdown user user-menu">--}}
 
                     <!-- Right Side Of Navbar inks -->
                     @if(is_null(Session::get('activeUser')))
                         <li><a href="{{ url('login') }}">Login</a></li>
                         <li><a href="{{ url('register') }}">Register</a></li>
                     @else
-                        <li class="dropdown">
+                        <li>
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                                 {{ Session::get('activeUser')->email }} <span class="caret"></span>
                             </a>
@@ -96,7 +96,7 @@
                                 </li>
                             </ul>
                         </li>
-                    </li>
+                    {{--</li>--}}
                     @endguest
                 </ul>
             </div>
@@ -221,5 +221,16 @@
             })
         })
     </script>
+
+<script>
+    $(document).ready(function(){
+        $("#map").load("http://localhost/mapbender/", function(responseTxt, statusTxt, xhr){
+            if(statusTxt == "success")
+                alert("External content loaded successfully!");
+            if(statusTxt == "error")
+                alert("Error: " + xhr.status + ": " + xhr.statusText);
+        });
+    });
+</script>
 </body>
 </html>

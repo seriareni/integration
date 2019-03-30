@@ -64,9 +64,12 @@ class UserController extends Controller
                          ->with('success', 'Biodata user berhasil diupload');
     }
 
-    public function destroy($id){
+    public function destroy(Request $request, $id){
         $user = UserModel::find($id);
+        $schemaName = $user->name;
+        $schema = str_replace(" ", "_", $schemaName);
         $user->delete();
+        PGSchema::drop($schema);
         return redirect()->route('user.index')
                          ->with('success', 'User berhasil dihapus');
 

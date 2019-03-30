@@ -1,39 +1,26 @@
 @extends('layouts.backend_template')
-
+@section('title', 'SITRG | Data SHP')
 @section('content')
 
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Data SHP
+            Map
             <small>Control panel</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Data SHP</li>
+            <li class="active">MapBender</li>
         </ol>
     </section>
 
         <!-- Main content -->
     <section class="content">
+        <div id="map"></div>
 
+    {{--<iframe src="http://localhost/mapbender/" style="height:500px;width:1050px;"></iframe>--}}
         <!-- Main row -->
-        <div class="row">
-            <div class="col-xs-12">
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Data</h3>
-                </div>
-                <div class="box-body">
-                    <p>Hello
-                        {{session()->get('activeUser')->name}}
-                    </p>
-                </div>
-            </div>
-            </div>
-        </div>
-        <!-- /.row (main row) -->
 
     </section>
     <!-- /.content -->

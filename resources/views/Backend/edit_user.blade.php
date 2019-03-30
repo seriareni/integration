@@ -7,7 +7,7 @@
  {{--*/--}}
 
 @extends('layouts.backend_template')
-
+@section('title', 'SITRG | Edit User')
 @section('content')
 
     <div class="content-wrapper">

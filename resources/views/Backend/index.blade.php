@@ -1,5 +1,5 @@
 @extends('layouts.backend_template')
-
+@section('title', 'SITRG | Dashboard')
 @section('content')
 
 <div class="content-wrapper">

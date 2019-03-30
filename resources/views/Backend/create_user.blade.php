@@ -1,5 +1,5 @@
 @extends('layouts.backend_template')
-
+@section('title', 'SITRG | Create User')
 @section('content')
 
     <div class="content-wrapper">
@@ -27,6 +27,7 @@
 
             <!-- Main row -->
             <div class="row" >
+                <div class="col-md-2"></div>
                 <div class="col-md-8">
                     <div class="box box-primary">
                         <div class="box-header with-border">
@@ -104,6 +105,7 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-2"></div>
             </div>
             <!-- /.row (main row) -->
 

@@ -1,5 +1,5 @@
 @extends('layouts.backend_template')
-
+@section('title', 'SITRG | User')
 @section('content')
 
     <div class="content-wrapper">

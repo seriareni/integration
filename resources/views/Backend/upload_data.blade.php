@@ -1,5 +1,5 @@
 @extends('layouts.backend_template')
-
+@section('title', 'SITRG | Upload Data')
 @section('content')
 <div class="content-wrapper">
 
@@ -17,7 +17,18 @@
 
     <section class="content">
         <!-- Main row -->
+        <?php
+        $name = session()->get('activeUser')->name;
+        $schema = str_replace(" ", "_", $name);
+        echo "nama schema =". $schema;
+        echo "<br>";
+        $role = session()->get('activeUser')->role_id;
+        echo "role = ". $role;
+
+        ?>
+
         <div class="row">
+            <div class="col-md-2"></div>
             <div class="col-md-8">
                 <div class="box box-primary">
                     <div class="box-header with-border">
@@ -33,7 +44,7 @@
 
                             <div class="col-md-4" >
                                 <?php
-                                echo Form::file('zip_file', ['class' => 'btn btn-md', 'accept' => 'application/zip', 'id'=>'zip_file']);
+                                echo Form::file('zip_file', ['class' => 'btn btn-md', 'accept' => 'application/zip', 'id'=>'zip_file'],'required');
                                 ?>
                             </div>
                         </div>
@@ -47,18 +58,43 @@
                             </div>
 
                             <div class="col-md-4">
+                                <br>
+                                <span class="pull-right-container"></span>
 
                                 @foreach($schemas as $num => $data)
+                                    <?php
+
+                                    if ($role == 1){
+                                        ?>
+
+                                    {{Form::radio('data', $data->schema_name)}}
+                                    {{$data->schema_name}}<?php
+                                    }
+                                    else
+                                        {
+                                            if($data->schema_name == $schema){?>
+                                            {{Form::radio('data', $schema)}}
+                                            {{$schema}}
+                                            <?php
+                                            }
+                                            else{
+                                            }
+                                        }
+                                        ?>
+
+
+
                                         {{--<select id="data" name="data">--}}
                                             {{--<option>Select Schema</option>--}}
                                             {{--@foreach($schemas as $num => $data)--}}
                                             {{--<option value="data"> {{$data->schema_name}}</option>--}}
                                             {{--@endforeach--}}
                                         {{--</select>--}}
-                                        {{Form::radio('data', $data->schema_name)}}
-                                        {{$data->schema_name}}
-                                        <br>
-                                        <span class="pull-right-container"></span>
+
+                                        {{--{{Form::radio('data', $data->schema_name)}}--}}
+                                        {{--{{$data->schema_name}}--}}
+                                        {{--<br>--}}
+                                        {{--<span class="pull-right-container"></span>--}}
                                 @endforeach
                             </div>
                         </div>
@@ -73,7 +109,7 @@
                     </div>
                 </div>
             </div>
-
+            <div class="col-md-2"></div>
         </div>
     </section>
 </div>
