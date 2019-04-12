@@ -9,17 +9,12 @@
                 User
             </h1>
                 {{--<small>Control panel</small>--}}
-
-
             {{--<ol class="breadcrumb">--}}
                 {{--<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>--}}
                 {{--<li class="active">Dashboard</li>--}}
-
             {{--</ol>--}}
 
         </section>
-
-
         <!-- Main content -->
         <section class="content">
 
@@ -61,16 +56,16 @@
                                         <td>{{$user->name}}</td>
                                         <td>{{$user->email}}</td>
                                         <td>
-                                            <form action="{{route('user.destroy',$user->user_id)}}" method="post">
+                                            {{--<form action="" method="post">
                                                 {{ csrf_field() }}
-                                                <a class="btn btn-primary" href="{{route('user.show', $user->user_id)}}">Show</a>
-                                                <a class="btn btn-warning" href="{{route('user.edit', $user->user_id)}}">Edit</a>
-                                                {{--{{ csrf_field() }}--}}
+                                                --}}{{--<a class="btn btn-warning" href="{{route('user.edit', $user->user_id)}}">Edit</a>--}}{{--
+                                                --}}{{--{{ csrf_field() }}--}}{{--
                                                 <input type="hidden" name="_method" value="DELETE">
                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
-                                                <button onclick="konfirmasiHapus()" type="submit" class="btn btn-danger">Delete</button>
-                                            </form>
+                                                --}}{{--<button onclick="konfirmasiHapus({{$user->user_id}})" type="submit" class="btn btn-danger">Delete</button>--}}{{--
+                                            </form>--}}
+                                            <a class="btn btn-primary" href="{{route('user.show', $user->user_id)}}">Show</a>
+                                            <a href="" onclick="konfirmasiHapus({{$user->user_id}})" class="btn btn-danger">Delete</a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -97,17 +92,17 @@
     </div>
 
     <script>
-        function konfirmasiHapus(){
+        function konfirmasiHapus(id){
+            //window.location.href = "https://www.example.com";
             var konfirmasi = confirm("Apakah anda yakin ingin menghapus user ini ? ");
             var text = "";
+            let url ="{{ url('backend/user/delete')}}/" + id;
 
-            if(konfirmasi === true) {
-                text = "Kamu klik Tombol OK";
+            if(konfirmasi == true) {
+                setTimeout(function(){document.location.href = url},1000);
             }else{
-                text = "Kamu klik Tombol Cancel";
+                return false;
             }
-
-            document.getElementById("hasil").innerHTML = text;
         }
     </script>
 

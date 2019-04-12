@@ -10,4 +10,8 @@ class FrontendHomeController extends Controller
     {
         return view ('frontend.home');
     }
+    public function showingmap()
+    {
+        return view ('frontend.map');
+    }
 }

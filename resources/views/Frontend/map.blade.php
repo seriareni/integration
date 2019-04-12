@@ -1,3 +1,11 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: USER
+ * Date: 4/12/2019
+ * Time: 2:40 PM
+ */
+
 @extends('layouts.frontend_template')
 @section('title', 'SITRG | Home')
 
@@ -5,8 +13,8 @@
     <div class="navbar-collapse collapse">
         <div class="menu">
             <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#">Home</a></li>
-                <li role="presentation"><a href="#">Peta</a></li>
+                <li role="presentation"><a href="#">Home</a></li>
+                <li role="presentation" class="active" ><a href="#">Peta</a></li>
                 <li role="presentation"><a href="#">Galeri</a></li>
                 <li role="presentation"><a href="#">Contact</a></li>
             </ul>

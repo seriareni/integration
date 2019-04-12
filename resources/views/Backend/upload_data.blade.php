@@ -20,11 +20,7 @@
         <?php
         $name = session()->get('activeUser')->name;
         $schema = str_replace(" ", "_", $name);
-        echo "nama schema =". $schema;
-        echo "<br>";
         $role = session()->get('activeUser')->role_id;
-        echo "role = ". $role;
-
         ?>
 
         <div class="row">
@@ -36,7 +32,7 @@
                     </div>
 
                     <div class="box-body">
-                        <?php echo Form::open(['url'=>'/backend/upload','files'=>'true']); ?>
+                        <?php echo Form::open(['url'=>'/backend/upload','files'=>'true', 'required'=>'required']); ?>
                         <div class="row">
                             <div class="col-md-4">
                                 <p class="help-block">Upload file type .zip</p>
@@ -61,20 +57,35 @@
                                 <br>
                                 <span class="pull-right-container"></span>
 
-                                @foreach($schemas as $num => $data)
+                                {{--@foreach($schemas as $num => $data)--}}
                                     <?php
 
                                     if ($role == 1){
                                         ?>
+                                        {{--ini untuk superadmin--}}
+                                        <select id="data" name="data">
+                                            <option>Select Schema</option>
+                                                @foreach($schemas as $num => $data)
+                                                    <option>{{$data->schema_name}}</option>
+                                                @endforeach
+                                        </select>
 
-                                    {{Form::radio('data', $data->schema_name)}}
-                                    {{$data->schema_name}}<?php
+                                    {{--{{Form::radio('data', $data->schema_name)}}--}}
+{{--                                    {{$data->schema_name}}--}}
+
+                                        <?php
                                     }
                                     else
+                                    ?>
+                                        @foreach($schemas as $num => $data)
+                                    <?php
                                         {
-                                            if($data->schema_name == $schema){?>
+//                                          ini untuk admin
+                                            if($data->schema_name == $schema){
+                                            ?>
                                             {{Form::radio('data', $schema)}}
                                             {{$schema}}
+                                            <br>
                                             <?php
                                             }
                                             else{
@@ -87,7 +98,7 @@
                                         {{--<select id="data" name="data">--}}
                                             {{--<option>Select Schema</option>--}}
                                             {{--@foreach($schemas as $num => $data)--}}
-                                            {{--<option value="data"> {{$data->schema_name}}</option>--}}
+                                            {{--<option> {{$data->schema_name}}</option>--}}
                                             {{--@endforeach--}}
                                         {{--</select>--}}
 

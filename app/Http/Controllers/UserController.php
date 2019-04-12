@@ -64,7 +64,8 @@ class UserController extends Controller
                          ->with('success', 'Biodata user berhasil diupload');
     }
 
-    public function destroy(Request $request, $id){
+    public function destroy($id){
+
         $user = UserModel::find($id);
         $schemaName = $user->name;
         $schema = str_replace(" ", "_", $schemaName);
