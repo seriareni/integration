@@ -49,7 +49,15 @@
                         @endif
 
                         <div class="box-body">
+                            @if ($message = Session::get('warning'))
+                                <div class="alert alert-warning">
+                                    <p>{{$message}}</p>
+                                </div>
+                            @endif
+
+                            {{--<form method="post" class="form-horizontal">--}}
                             <form action="{{route('user.store')}}" method="post" class="form-horizontal">
+{{--                            <form action="{{url('backend/user/store')}}" method="post" class="form-horizontal">--}}
 {{--                                {{!!@csrf_field()}}--}}
 
                                 {{--<div class="row">--}}
@@ -86,14 +94,16 @@
                                         {{--<strong>Password : </strong>--}}
                                         {{--<input type="password" name="password" class="form-control" placeholder="Password">--}}
                                     {{--</div>--}}
-                                <div class="row">
-                                    <div class="col-md-6">
+
+                                    <div class="text-right">
                                         <a href="{{route('user.index')}}" class="btn btn-success">Back</a>
-                                    </div>
-                                    <div class="col-md-6">
                                         <button type="submit" class="btn btn-primary" >Submit</button>
+                                        {{--<a href="{{route('user.store')}}" class="btn btn-primary">Submit</a>--}}
                                     </div>
-                                </div>
+                                    {{--<div class="text-right">--}}
+                                        {{----}}
+                                    {{--</div>--}}
+
                             </form>
                             {{--<p>Hello--}}
                                 {{--{{session()->get('activeUser')->name}}--}}

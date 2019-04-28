@@ -5,16 +5,27 @@
     <div class="navbar-collapse collapse">
         <div class="menu">
             <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#">Home</a></li>
-                <li role="presentation"><a href="#">Peta</a></li>
-                <li role="presentation"><a href="#">Galeri</a></li>
-                <li role="presentation"><a href="#">Contact</a></li>
+                <li role="presentation" class="active"><a href="{{ url('frontend/home')}}">Home</a></li>
+                <li role="presentation"><a href="{{url('frontend/map')}}">Peta</a></li>
+                <li role="presentation"><a href="{{url('frontend/gallery')}}">Galeri</a></li>
+                <li role="presentation"><a href="{{url('frontend/contact')}}">Contact</a></li>
+                <li role="presentation"><a href="{{url('login')}}">Login</a></li>
             </ul>
         </div>
     </div>
 @endsection
 
 @section('content')
+
+    <div class="slider">
+        <div class="img-responsive">
+            <ul class="bxslider">
+                <li><img src="{{asset('components_user/img/bromo.jpg')}}" alt="" /></li>
+                <li><img src="{{asset('components_user/img/sby.jpg')}}" alt="" /></li>
+                <li><img src="#" alt="" /></li>
+            </ul>
+        </div>
+    </div>
 
     <div class="jumbotron">
         <h1>SITRG</h1>
@@ -25,10 +36,10 @@
 
     <div class="container">
         <div class="col-md-6">
-            <img src="img/10.jpg" alt="" class="img-responsive" />
+            <img src="#" alt="" class="img-responsive" />
         </div>
         <div class="col-md-6">
-            <img src="img/11.jpg" alt="" class="img-responsive" />
+            <img src="#" alt="" class="img-responsive" />
         </div>
     </div>
     <section class="box">

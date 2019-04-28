@@ -1,5 +1,10 @@
 @extends('layouts.backend_template')
 @section('title', 'SITRG | User')
+
+@section('menuActive')
+
+@endsection
+
 @section('content')
 
     <div class="content-wrapper">
@@ -28,17 +33,17 @@
                             {{--</div>--}}
                             <div class="pull-right">
                                 {{--route ini berdasarkan dari web pada routes yaitu route::resource user. Index disini mengarah pada Usercontroler fungsi index--}}
-                             <a class="btn btn-success" href=" {{route('user.create')}} "><i class="fa fa-user-plus"></i> Add User</a>
+{{--                             <a class="btn btn-success" href=" {{route('user.create')}} "><i class="fa fa-user-plus"></i> Add User</a>--}}
+                             <a class="btn btn-success" href="{{url('backend/user/createUser')}}" ><i class="fa fa-user-plus"></i> Add User</a>
                             </div>
                         </div>
 
-                        @if ($message = Session::get('success'))
-                            <div class="alert alert-success">
-                                <p>{{$message}}</p>
-                            </div>
-                        @endif
-
                         <div class="box-body">
+                            @if ($message = Session::get('success'))
+                                <div class="alert alert-success">
+                                    <p>{{$message}}</p>
+                                </div>
+                            @endif
 
                             <table  class="table table-bordered table-hover" id="myTable">
                                 <thead>
@@ -46,28 +51,28 @@
                                     <th width="50px"><b>No.</b></th>
                                     <th width="300px"><b>Nama Wilayah</b></th>
                                     <th width="300px"><b>Email</b></th>
-                                    <th width="180px"><b>Action</b></th>
+                                    <th width="10px"><b></b></th>
+                                    <th width="10px"><b></b></th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($users as $user)
+                                    @if($user->role_id!=1)
                                     <tr>
                                         <td><b>{{++$i}}.</b></td>
                                         <td>{{$user->name}}</td>
                                         <td>{{$user->email}}</td>
                                         <td>
-                                            {{--<form action="" method="post">
-                                                {{ csrf_field() }}
-                                                --}}{{--<a class="btn btn-warning" href="{{route('user.edit', $user->user_id)}}">Edit</a>--}}{{--
-                                                --}}{{--{{ csrf_field() }}--}}{{--
-                                                <input type="hidden" name="_method" value="DELETE">
-                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                --}}{{--<button onclick="konfirmasiHapus({{$user->user_id}})" type="submit" class="btn btn-danger">Delete</button>--}}{{--
-                                            </form>--}}
-                                            <a class="btn btn-primary" href="{{route('user.show', $user->user_id)}}">Show</a>
+                                            <a class="btn btn-primary" href="{{ url('backend/user/show/'.$user->user_id)}}">Show</a>
+{{--                                            <a class="btn btn-primary" href="{{route('user.show', $user->user_id)}}">Show</a>--}}
+                                            {{--<a href="" onclick="konfirmasiHapus({{$user->user_id}})" class="btn btn-danger">Delete</a>--}}
+                                        </td>
+                                        <td>
                                             <a href="" onclick="konfirmasiHapus({{$user->user_id}})" class="btn btn-danger">Delete</a>
+{{--                                            <a href="{{ url('backend/user/delete/'.$user->user_id)}}" class="btn btn-danger">Delete</a>--}}
                                         </td>
                                     </tr>
+                                    @endif
                                 @endforeach
                                 </tbody>
                             </table>
@@ -92,18 +97,22 @@
     </div>
 
     <script>
-        function konfirmasiHapus(id){
-            //window.location.href = "https://www.example.com";
-            var konfirmasi = confirm("Apakah anda yakin ingin menghapus user ini ? ");
-            var text = "";
-            let url ="{{ url('backend/user/delete')}}/" + id;
 
-            if(konfirmasi == true) {
-                setTimeout(function(){document.location.href = url},1000);
-            }else{
-                return false;
+            function konfirmasiHapus(id) {
+                //window.location.href = "https://www.example.com";
+                var konfirmasi = confirm("Apakah anda yakin ingin menghapus user ini ?");
+                var text = "";
+                let url = "{{url('backend/user/delete')}}/" + id;
+
+                if (konfirmasi == true) {
+                    setTimeout(function () {
+                        document.location.href = url
+                    },100);
+                } else {
+                    return false;
+                }
             }
-        }
+
     </script>
 
 

@@ -44,8 +44,6 @@
                                 ?>
                             </div>
                         </div>
-                        <br>
-                        <br>
 
                         <div class="row">
                             <div class="col-md-4">
@@ -109,13 +107,12 @@
                                 @endforeach
                             </div>
                         </div>
-                        <br>
-                        <br>
-
+                                <div class="text-right">
                         <?php
                         echo Form::submit('Submit', ['class' => 'btn btn-md btn-primary', 'text-align' => 'right']);
                         echo Form::close();
                         ?>
+                                </div>
 
                     </div>
                 </div>

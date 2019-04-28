@@ -28,11 +28,15 @@ class LoginController extends Controller
             $params = [
                 'message' => 'Login Gagal, Data tidak ditemukan'
             ];
+            $this->loginMenu();
         }else{
             if($activeUser->password == sha1($password)){
 
                 $request->session()->put('activeUser',$activeUser); // activeuser diambil session ke home.
                // dd($activeUser);
+                $activeUser->remember_token=sha1($activeUser->user_id.date('YmdHis'));
+                $activeUser->save();
+
 
 
                 return redirect('backend/home');
@@ -40,6 +44,7 @@ class LoginController extends Controller
             $params = [
                 'message' => 'Login Gagal, Password tidak sesuai'
             ];
+            $this->loginMenu();
         }
 
         return view('login.index', $params);
@@ -57,6 +62,13 @@ class LoginController extends Controller
 
         Session::flush();
         return redirect('login');
+    }
+
+    public function cobaLogin(Request $request){
+        if($request->session()->exists('activeUser')){
+            return redirect('backend/home');
+        }
+        return view('login/coba');
     }
 
 }

@@ -415,6 +415,6 @@ class ZipController extends Controller
 
     public function show(Request $request)
     {
-        return view('backend/data_shp');
+        return view('backend/show_map');
     }
 }

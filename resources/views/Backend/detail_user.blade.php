@@ -34,6 +34,7 @@
 
             <!-- Main row -->
             <div class="row" >
+                <div class="col-md-2"></div>
                 <div class="col-md-8">
                     <div class="box box-primary">
                         <div class="box-body">
@@ -59,7 +60,7 @@
                                 </div>
                             </form>
 
-                            <div class="col-md-12">
+                            <div class="text-right">
                                 <a href="{{route('user.index')}}" class="btn btn-success">Back</a>
                             </div>
 
@@ -75,9 +76,7 @@
                 </div>
             </div>
             <!-- /.row (main row) -->
-
         </section>
         <!-- /.content -->
-
     </div>
 @endsection
